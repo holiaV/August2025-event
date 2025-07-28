@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>「かくれる」合戦</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+        body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #606060;
+      padding: 2em;
+      line-height: 1.8;
+      color: #e0e0e0;
+    }
+    .main-title {
+      font-size: 2em;
+      color: #c0c0c0;
+      margin: 0;
+    }
+    .sub-title {
+      font-size: 1.2em;
+      color: #a0a0a0;
+      margin: 0 0 1.5em 0;
+    }
+    .section {
+      margin-bottom: 2em;
+      padding: 1em;
+      background-color: #505050; 
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+    h2 {
+      color: #4aaf4c;
+      border-bottom: 2px solid #8a8a8a;
+      padding-bottom: 0.3em;
+    }
+    ul {
+      list-style-type: square;
+      padding-left: 1.5em;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 1em 0;
+      width: 100%;
+      max-width: 700px;
+    }
+    th, td {
+      border: 1px solid #7a7a7a;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #505050;
+    }
+    .note {
+      font-style: italic;
+      color: #d9a520;
+      margin-top: 0.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="main-title">★忍者対抗「かくれる」合戦</h1>
+    <h2 class="sub-title">～最後まで生き残るのは誰だ～</h2>
+
+
+    <div class="section">
+      <h2>◆ 目的 ⭐</h2>
+      <ul>
+      <li>チーム対抗で自分たちは隠れ切り相手のチームを全員探し出せ<br>
+      <img src="隠れる.png" alt="隠れる" style="width:75px; margin-top: 0.5em;">
+      </li>
+    </div>
+
+    <div class="section">
+      <h2>◆ 参加資格 ✋</h2>
+      <ul>
+        <li>双剣士Lv10以上</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>◆ 勝利条件 👑</h2>
+      <ol>
+        <li>制限時間（30分）終了時点で見つかっていないメンバーが多いチームの勝利。</li>
+        <li>制限時間以内に全員見つけても勝利。</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>◆ ミラプリテーマ👚</h2>
+      <p>
+        今回のテーマは<br>
+          <div style="font-size:3.5em; color:#4aaf4c; font-weight:900; font-family:'Yu Gothic', 'Segoe UI', sans-serif; text-shadow:0 0 5px #2e7d32, 2px 2px 4px #1b3a1b; animation:pop 1.5s ease-in-out infinite alternate;">🤫隠密🤫</div>
+        です。<br>
+        闇に忍ぶ厨二臭いミラプリ、期待してます。<br>
+        ベストミラプリ賞は全体賞金の10%です。<br>
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>◆ 賞金 💰</h2>
+      <label for="totalPrize">賞金総額（ギル）:</label>
+      <input type="number" id="totalPrize" value="1000000" style="width: 150px;">
+      <label for="participantCount">参加人数:</label>
+      <select id="participantCount">
+        <option value="4">4名</option>
+        <option value="6">6名</option>
+        <option value="8">8名</option>
+        <option value="10">10名</option>
+        <option value="12">12名</option>
+      </select>
+      <button onclick="calculatePrize()">計算</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>勝者チーム数</th>
+            <th>敗者チーム数</th>
+            <th>優勝チーム賞金（一チームあたり）</th>
+            <th>参加賞（一人あたり）</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+    </div>
+    
+    <div class="section">
+      <h2>◆ チーム分け 🧑‍🤝‍🧑</h2>
+      <p><strong>ダイスで完全ランダム</strong><br>
+      「/random」コマンドで出た数値の昇順で決定する。<br>
+      例：900 800 700 600 → 900＆800チーム、700＆600チーム</p>
+
+      <p><strong>参加人数が奇数になったら？</strong><br>
+      参加人数が奇数になった場合、誰かが代表して探す専門の「ハンター」になります。<br>
+      隠れている状態で「ハンター」に見つかった場合、「ハンター得点」をチームに付与します。<br>
+      「ハンター得点」は勝利した時に獲得できる賞金総額が参加人数に応じて「ハンター」に差っ引かれます。<br>
+      「ハンター」は隠れているプレイヤーを誰一人見つけられなかった場合、参加賞も貰えません。<br><br>
+      
+      我こそはという方は是非「ハンター」に立候補してみてください。<br>
+      勿論、希望者がいなければholiaさんが「ハンター」として参戦し、皆様と戦わせて頂きます。<br>
+      </p>
+
+      <p><strong>参加者人数とチーム構成：</strong><br>
+        4名：2 vs 2<br>
+        6名：3 vs 3<br>
+        8名：4 vs 4<br>
+        10名：5 vs 5<br>
+        12名：6 vs 6<br>
+    </div>
+    
+    <div class="section">
+    <h2>◆ 会場 🗺</h2>
+    <div style="font-size:3.5em;">ドマ城下町</div>
+    <img src="会場.png" alt="会場" ;">
+    <p>西の廃墟部分から東の形がしっかり残っている町まで<br>
+    茂みに隠れるもよし、建物の裏側に隠れるもよし、とにかくみつかれなければよし！</p>
+    
+    <div class="section">
+    <h2>◆ ルール 📜</h2>
+    <ul>
+      <li>
+          役割分担👆<br>
+          チームメンバー同士はPTを組んでおく。<br>
+          各チームはそれぞれ代表者として「探す人」を1名立てる。<br>
+          残りのプレイヤーは全員「隠れる人」になり、ドマ城下町内の好きな所に隠れる。<br>
+          相手チームの「探す人」に見つかったプレイヤーは「探す人」になる。<br>
+          「隠れる人」が全滅した時点で敗北。<br>
+          例：3 vs 3 の場合…「探す人」1名ずつ　「隠れる人」2名ずつ
+          
+      </li>
+      <li>
+          探す人👀<br>
+          「探す人」になったプレイヤーは全員「頭上のネームプレート表示」をオフにしておく。<br>
+          また、「探す人」は一人称視点に切り替えて捜索する。<br>
+          <video width="640" height="360" controls>
+          <source src="サンプル動画.mp4" type="video/mp4">
+          このブラウザは video タグをサポートしていません。
+          </video>
+          <br>
+          「探す人」は裾踏橋で待機し、「隠れる人」が隠れ終わってからドマ城下町に移動し捜索を開始する。<br>
+          <img src="裾踏橋map.png" alt="裾踏橋map" style="width:600px; margin-top: 0.5em;">
+          <br>
+          <img src="裾踏橋.png" alt="裾踏橋" style="width:600px; margin-top: 0.5em;">
+          <br>
+          ドマ町人地に入ってからはフライングマウントでの捜索は禁止。(マウントに乗るのはOK)<br>
+          探す側はアクティブモブに見つからないために忍者以外のジョブにチェンジしてもOK。<br>
+          「隠れてる人」を見つけ次第、プレイヤーに近づき「トレード」画面を開くことで「発見」とする。
+      </li>
+      <li>
+          隠れる人🤫<br>
+          「隠れる人」は「探す人」の接近を感知する目的も踏まえて「頭上のネームプレート表示」はオンにしてOK。<br>
+          「隠れる人」は双剣士10Lvで解放できるスキル「かくれる」状態を維持。<br>
+          また、「かくれる」状態を維持できていれば移動はOK。<br>
+          隠れる側はマウントに乗って移動や「縮地」を使用しての移動は禁止とする。<br>
+          ※スプリントはOK(隠れるが切れない上にリキャもありちょうど良い為)<br>
+          「隠れる人」から「探す人」への情報共有禁止<br>
+          ※「隠れる人」同士で鉢合わせた時に「○○さんここにいる！」って言うのがNG<br>
+             自分が見つかり「探す人」になった時に「そういや○○さんこの辺に隠れてたな！」って探しに行くのはOK<br>
+      </li>
+        <table>
+    <tr>
+      <th></th>
+      <th>隠れる人</th>
+      <th>探す人</th>
+    </tr>
+    <tr>
+      <th>ジョブ</th>
+      <td>忍者固定</td>
+      <td>レベル高めのジョブ(出来れば忍者)</td>
+    </tr>
+    <tr>
+      <th>マウント使用</th>
+      <td>禁止</td>
+      <td>フライングしなければOK</td>
+    </tr>
+    <tr>
+      <th>視点</th>
+      <td>任意</td>
+      <td>一人称視点固定</td>
+    </tr>
+    <tr>
+      <th>ネームプレート表示</th>
+      <td>任意</td>
+      <td>非表示</td>
+    </tr>
+  </table>
+    </ul>
+  </div>
+
+<script>
+  function calculatePrize() {
+    const totalPrize = parseInt(document.getElementById('totalPrize').value, 10);
+    const participantCount = parseInt(document.getElementById('participantCount').value, 10);
+    const tableBody = document.getElementById('resultBody');
+    tableBody.innerHTML = '';
+
+    if (participantCount % 2 !== 0) {
+      // 奇数は未対応
+      tableBody.innerHTML = `<tr><td colspan="4" style="color:red;">参加人数は偶数を選んでください。</td></tr>`;
+      return;
+    }
+
+    const teamCount = 2; // 2チーム固定
+    const teamSize = participantCount / teamCount;
+
+    // 今回は「勝者チーム数」は1チームと仮定
+    const winnerTeams = 1;
+    const loserTeams = teamCount - winnerTeams;
+
+    // 優勝チーム賞金は総賞金の80%を勝者チームで割る
+    const winnerTeamPrize = Math.floor((totalPrize * 0.8) / winnerTeams);
+
+    // 参加賞は総賞金の10%を全参加者で割る
+    const participationPrize = Math.floor((totalPrize * 0.1) / participantCount);
+
+    const row = `<tr>
+      <td>${winnerTeams}</td>
+      <td>${loserTeams}</td>
+      <td>${winnerTeamPrize.toLocaleString()} ギル</td>
+      <td>${participationPrize.toLocaleString()} ギル</td>
+    </tr>`;
+
+    tableBody.insertAdjacentHTML('beforeend', row);
+  }
+</script>
+
+
+</body>
+</html>
